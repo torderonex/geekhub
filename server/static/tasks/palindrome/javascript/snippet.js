@@ -1,0 +1,3 @@
+var palindrome = function(s){
+
+}

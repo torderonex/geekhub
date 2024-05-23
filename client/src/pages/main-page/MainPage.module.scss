@@ -1,0 +1,188 @@
+.MainPage {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    font-weight: 600;
+    position: relative;
+    height: 100%;
+    font-family: "Inter";
+    
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 17px 35px;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            h2 {
+                margin-top: 5px;
+            }
+
+            img {
+                margin-bottom: 1px;
+            }
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 25px;
+        }
+
+        .btns {
+            display: flex;
+            gap: 8px;
+
+            button {
+                padding: 10px 36px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+
+            .login {
+                background-color: transparent;
+                border: 2px solid black;
+            }
+
+            .entry {
+                background-color: #444ce7;
+                color: white;
+            }
+        }
+    }
+
+    .typing {
+        padding-top: 60px;
+        height: 500px;
+        text-align: center;
+        overflow: hidden;
+
+        span {
+            font-size: 55px;
+            font-weight: 700;
+            z-index: 1;
+        }
+        
+        button {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 16px 40px 13px;
+            // width: 250px;
+            margin: 0 auto;
+            border: none;
+            // background: #444ce7;
+            background: transparent;
+            border: 2px solid #444ce7;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .dive {
+            font-size: 16px;
+            font-weight: 600;
+            animation: fadeInOut 2s infinite ease-in-out;
+            color: #444ce7;
+        }
+
+        .backgroundCircles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+
+            .circle {
+                position: absolute;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgb(255, 255, 255), #000dff);
+                animation: float 10s infinite;
+                opacity: 0.5;
+            }
+
+            .circle1 {
+                width: 150px;
+                height: 150px;
+                top: 50%;
+                left: 15%;
+                animation-duration: 8s;
+            }
+
+            .circle2 {
+                width: 200px;
+                height: 200px;
+                top: 50%;
+                left: 70%;
+                animation-duration: 10s;
+            }
+
+            .circle3 {
+                width: 100px;
+                height: 100px;
+                top: 100%;
+                left: 5%;
+                animation-duration: 12s;
+            }
+
+            .circle4 {
+                width: 140px;
+                height: 140px;
+                top: 90%;
+                left: 35%;
+                animation-duration: 12s;
+            }
+
+            .circle5 {
+                width: 120px;
+                height: 120px;
+                top: 95%;
+                left: 85%;
+                animation-duration: 12s;
+            }
+        }
+    }
+}
+
+.arrow {
+    margin-top: 70px;
+    width: 40px;
+    height: 40px;
+    color: #444ce7;
+    animation: fadeInOut 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-20px) translateX(20px);
+    }
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}
+
+@keyframes fadeInOut {
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,734 @@
+definitions:
+  entities.File:
+    properties:
+      fileLang:
+        type: string
+      fileName:
+        type: string
+      id:
+        type: integer
+      projectId:
+        type: integer
+    type: object
+  entities.Project:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      owner_id:
+        type: integer
+    type: object
+  entities.TaskInfo:
+    properties:
+      defaultValue:
+        type: string
+      description:
+        type: string
+      difficulty:
+        type: string
+      id:
+        type: integer
+      language:
+        type: string
+      status:
+        type: boolean
+      testOutputs:
+        items:
+          $ref: '#/definitions/entities.TaskTestcase'
+        type: array
+      title:
+        type: string
+      type:
+        type: string
+    type: object
+  entities.TaskTestcase:
+    properties:
+      input:
+        type: string
+      output:
+        type: string
+    type: object
+  handler.askChatRequest:
+    properties:
+      code:
+        type: string
+      prompt:
+        type: string
+    type: object
+  handler.codeReviewRequest:
+    properties:
+      code:
+        type: string
+    type: object
+  handler.compileProjectReq:
+    properties:
+      entry_file:
+        type: string
+      project_id:
+        type: integer
+    required:
+    - entry_file
+    - project_id
+    type: object
+  handler.compilerDto:
+    properties:
+      language:
+        type: string
+      script:
+        type: string
+    type: object
+  handler.createFileRequest:
+    properties:
+      name:
+        type: string
+      project_id:
+        type: integer
+    required:
+    - name
+    - project_id
+    type: object
+  handler.createProjectRequest:
+    properties:
+      name:
+        type: string
+      owner_id:
+        type: integer
+    required:
+    - name
+    - owner_id
+    type: object
+  handler.errorResponse:
+    properties:
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  handler.loginDto:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  handler.testSolutionReq:
+    properties:
+      code:
+        type: string
+      language:
+        type: string
+      task_id:
+        type: integer
+      user_id:
+        type: integer
+    required:
+    - code
+    - language
+    - task_id
+    - user_id
+    type: object
+  handler.updateContentReq:
+    properties:
+      content:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/ai/ask:
+    post:
+      consumes:
+      - application/json
+      description: Send a code snippet and a prompt to the AI chat for a response.
+      parameters:
+      - description: Code and Prompt
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.askChatRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: type"="res" "message"="AI response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: error"="Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: error"="Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Ask AI Chat
+      tags:
+      - AI
+  /api/v1/ai/review:
+    post:
+      consumes:
+      - application/json
+      description: Send a code snippet for AI code review.
+      parameters:
+      - description: Code
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.codeReviewRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message"="AI analysis
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: error"="Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: error"="Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Code Review
+      tags:
+      - AI
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user and generate a JWT token.
+      parameters:
+      - description: User credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.loginDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token"="JWT token
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: error"="Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: error"="Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Log in a user
+      tags:
+      - auth
+  /api/v1/auth/logout:
+    post:
+      description: Invalidate the user's JWT token.
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Log out a user
+      tags:
+      - auth
+  /api/v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account and generate a JWT token.
+      parameters:
+      - description: User credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.loginDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token"="JWT token
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: error"="Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: error"="Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new user
+      tags:
+      - auth
+  /api/v1/compiler/script:
+    post:
+      consumes:
+      - application/json
+      description: Compile the given script in the specified language.
+      parameters:
+      - description: Compiler input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.compilerDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: output"="Compilation result
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: error"="Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: error"="Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Compile a script
+      tags:
+      - compiler
+  /api/v1/project/all/{userId}:
+    get:
+      description: Retrieve all projects for the user with the specified ID.
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of user projects
+          schema:
+            items:
+              $ref: '#/definitions/entities.Project'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get user's projects
+      tags:
+      - projects
+  /api/v1/project/compile:
+    post:
+      consumes:
+      - application/json
+      description: Compile the project with the specified ID and entry file.
+      parameters:
+      - description: Compile Project Request
+        in: body
+        name: compileProjectReq
+        required: true
+        schema:
+          $ref: '#/definitions/handler.compileProjectReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: output"="hello world\n
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Compile project
+      tags:
+      - projects
+  /api/v1/project/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new project with the given name and owner ID.
+      parameters:
+      - description: 'Project input: {\'
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.createProjectRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Create a new project
+      tags:
+      - projects
+  /api/v1/project/file/{id}:
+    delete:
+      description: Delete the file with the specified ID.
+      parameters:
+      - description: File ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: id"="0
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Delete a file
+      tags:
+      - projects
+    get:
+      description: Retrieve the content of the file with the specified ID.
+      parameters:
+      - description: File ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: content"="File content
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get file content
+      tags:
+      - projects
+    put:
+      consumes:
+      - application/json
+      description: Update the content of the file with the specified ID.
+      parameters:
+      - description: File ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 'File content input: {\'
+        in: body
+        name: input
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.updateContentReq'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Update file content
+      tags:
+      - projects
+  /api/v1/project/file/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new file with the given name in the specified project.
+      parameters:
+      - description: 'File input: {\'
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.createFileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.File'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Create a new file in a project
+      tags:
+      - projects
+  /api/v1/project/file/rename/{id}:
+    put:
+      description: Retrieve the content of the file with the specified ID.
+      parameters:
+      - in: path
+        name: new_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.File'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get file content
+      tags:
+      - projects
+  /api/v1/project/files/{projId}:
+    get:
+      description: Retrieve all files for the project with the specified ID.
+      parameters:
+      - description: Project ID
+        in: path
+        name: projId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of project files
+          schema:
+            items:
+              $ref: '#/definitions/entities.File'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get project files
+      tags:
+      - projects
+  /api/v1/project/invite/accept:
+    put:
+      description: Retrieve the content of the file with the specified ID.
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: message"="user successfully join to the project
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get file content
+      tags:
+      - projects
+  /api/v1/project/invite/create:
+    post:
+      description: Retrieve the content of the file with the specified ID.
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: link"="http://localhost:5137/plakiplaki
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get file content
+      tags:
+      - projects
+  /api/v1/tasks:
+    get:
+      consumes:
+      - application/json
+      description: Get detailed information about tasks for the current user
+      parameters:
+      - description: User ID and other optional parameters
+        in: body
+        name: input
+        schema:
+          $ref: '#/definitions/handler.testSolutionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.TaskInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get information about tasks
+      tags:
+      - tasks
+  /api/v1/tasks/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get a task by its ID
+      parameters:
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.TaskInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Get Task by ID
+      tags:
+      - tasks
+  /api/v1/tasks/test:
+    post:
+      consumes:
+      - application/json
+      description: Test a provided code solution for a specific task
+      parameters:
+      - description: Solution input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.testSolutionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.testSolutionReq'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.errorResponse'
+      summary: Test solution for a task
+      tags:
+      - tasks
+swagger: "2.0"

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+pid_file="/var/run/docker/containerd/containerd.pid"
+
+if [ -f "$pid_file" ]; then
+    echo "Удаляем файл PID контейнера containerd..."
+    rm -f "$pid_file"
+fi

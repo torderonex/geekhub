@@ -1,0 +1,110 @@
+.Sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+  
+    background-color: var(--sidebar-bg);
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-right: 1px solid var(--border-color);
+
+    .TaskSidebar {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 20px;
+        color: var(--font-main);
+        line-height: 35px;
+        height: 100%;
+        width: 100%;
+
+        animation: fadeIn 0.15s ease-in forwards;
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .dropdown {
+                position: relative;
+                display: inline-block;
+                animation: fadeIn 0.5s ease-out forwards;
+                opacity: 10;
+                width: 120px;
+        
+                .dropbtn {
+                    background-color: var(--output-bg);
+                    color: var(--font-main);
+                    padding: 10px;
+                    font-size: 14px;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 40px;
+                    width: 120px;
+                    margin: 0 auto;
+                    gap: 10px;
+                }
+    
+                .dropdownContent {
+                    position: absolute;
+                    background-color: var(--output-bg);
+                    width: 120px;
+                    padding: 10px;
+                    border: 2px solid var(--border-bg);
+                    border-radius: 10px;
+                    margin-top: 10px;
+                    animation: fadeIn 0.15s ease-in forwards;
+    
+                    button {
+                        color: var(--main);
+                        font-size: 14px;
+                        // border: 2px solid #303030;
+                        border: none;
+                        border-radius: 5px;
+                        background-color: transparent;
+                        color: var(--font-main);
+                        cursor: pointer;
+                        width: 100%;
+        
+                        &:hover {
+                            background-color: var(--hover);
+                        }
+                    }
+                }
+            }
+        }
+    
+        .title {
+            font-size: 22px;
+            color: var(--opp);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+    
+        code {
+            border: 1px solid var(--code-main);
+            padding: 2px;
+            border-radius: 5px;
+        }
+    }
+  }
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}

@@ -1,0 +1,190 @@
+.Sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  // border-right: 1px solid var(--border-color);
+  width: 100%;
+  color: var(--opp);
+  font-family: "Inter";
+}
+
+.sideBarExplorer {
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+
+  span {
+    text-align: center;
+    font-weight: 500;
+  }
+}
+
+.dropdown {
+  width: 100%;
+  margin-bottom: 20px;
+  color: var(--opp);
+  border: none;
+  position: relative;
+  border-radius: 4px;
+  font-size: 16px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  
+  &Header {
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    background-color: var(--dropdown-bg);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    color: var(--font-main);
+    user-select: none;
+  }
+  
+
+  &Arrow {
+    opacity: 0.7;
+  }
+
+  .dropdownList {
+    margin-top: 10px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+
+  ul {
+    list-style-type: none;
+    background-color: var(--dropdown-bg);
+    border: 2px solid var(--border-color);
+    padding: 5px;
+    border-radius: 10px;
+
+    li {
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .selectedProjectItem {
+      background-color: var(--selected-file);
+    }
+  }
+}
+
+.projectInfo {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  margin-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-weight: 300;
+
+  div {
+    display: flex;
+    gap: 15px;
+  }
+}
+
+.projects {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  margin-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  span {
+    font-weight: 300;
+  }
+}
+
+.icon {
+  color: var(--font-main);
+
+  &:hover {
+    color: var(--accent-color);
+  }
+}
+
+.files {
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  .langLogo {
+    margin-right: 3px;
+  }
+
+  &Left {
+    display: flex;
+    align-items: center;
+  }
+
+  .editLogo {
+    width: 16px !important;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+
+    cursor: pointer;
+  }
+}
+
+.editorSidebar {
+  width: 100%;
+}
+
+.inviteModal {
+  display: flex;
+  flex-direction: column;
+  min-height: 175px;
+  max-width: 400px;
+  width: 100%;
+  z-index: 998;
+  padding: 20px;
+  justify-content: space-between;
+
+  .modalBtn {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+
+  .modalInput {
+    outline: none;
+    padding: 8px;
+    margin-top: 8px;
+    background-color: var(--main);
+    border: none;
+    color: var(--opp);
+    border-radius: 5px;
+  }
+
+  .errorText {
+    color: red;
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+}

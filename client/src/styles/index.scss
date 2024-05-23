@@ -1,0 +1,18 @@
+@import "./variables/global";
+@import "reset";
+@import "./themes/dark.scss";
+@import "./themes/light.scss";
+
+// body {
+  //   font-family: "Inter", sans-serif;
+  // font-optical-sizing: auto;
+  // font-weight: 400;
+  // font-style: normal;
+  // font-variation-settings:
+  //   "slnt" 0;
+// }
+
+body {
+  color: white;
+  font-family: "Inter";
+}

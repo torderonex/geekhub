@@ -1,0 +1,42 @@
+.SingleTask {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-dark);
+    z-index: -1;
+    font-family: "Inter";
+
+    .editorUpper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 6%;
+        background: var(--sidebar-bg);
+        padding-right: 20px;
+        padding-left: 10px;
+        animation: fadeIn 0.2s ease-in forwards;
+        border-left: 1px solid var(--border-bg);
+
+        .runCodeBtn {
+            gap: 5px;
+            min-width: 130px;
+        }
+    }
+}
+
+.panel {
+  background: var(--main);
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}

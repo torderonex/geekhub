@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: webcompiler
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: go_web_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    privileged: true
+    volumes:
+      - static_data:/go/src/app/static
+volumes:
+  postgres_data:
+  static_data:

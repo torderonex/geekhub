@@ -1,0 +1,10 @@
+http_server:
+  port: "8080"
+  timeout: 4s
+postgres:
+  port: 5432
+  username: "postgres"
+  database: "webcompiler"
+  host: "postgres_db"
+  max_retries: 5
+  retry_interval: 4s

@@ -1,0 +1,43 @@
+.ChatMessages {
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+    overflow-y: auto;
+    padding: 35px 0 10px;
+    gap: 30px;
+
+    h2 {
+        text-align: center;
+        color: var(--font-main);
+        animation: slideInFromTop 1s ease-out forwards;
+    }
+
+    .logo {
+        color: var(--font-main);
+        margin: 0 auto;
+        width: 50px;
+        height: 50px;
+        margin-top: 90px;
+        animation: fadeIn 1s ease-in forwards;
+    }
+}
+
+@keyframes slideInFromTop {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}

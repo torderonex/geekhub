@@ -1,0 +1,23 @@
+.MyInput {
+    display: flex;
+    margin-top: 8px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0px 16px;
+    font-size: 14px;
+    border: none;
+    height: 50px;
+    background: #e3e3e3;
+    color: black;
+    font-weight: 500;
+    font-family: "Inter";
+
+    &::placeholder {
+        opacity: 0.8;
+    }
+}
+
+.MyInput:focus {
+    outline: none;
+    border: 2px #444ce7 solid;
+}

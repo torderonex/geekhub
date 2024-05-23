@@ -1,0 +1,80 @@
+.TasksTable {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--main-dark);
+    overflow-y: auto;
+    animation: fadeIn 0.5s ease-in backwards;
+    z-index: 1;
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--table-border);
+      
+        th, td {
+            padding: 12px;
+            color: var(--font-main);
+            font-weight: normal;
+        }
+      
+        th {
+            background-color: var(--th-bg);
+            font-weight: bold;
+        }
+
+        td {
+            color: var(--td-color);
+            height: 50px;
+        }
+
+        tr {
+            background-color: var(--tr);
+        }
+      
+        tr:nth-child(even) {
+            background-color: var(--tr-even);
+        }
+      
+        tr:hover {
+            background-color: var(--tr-hover);
+            cursor: pointer;
+        }
+
+        .status {
+            width: 70px;
+            text-align: center;
+        }
+
+        .status svg {
+            width: 1.2em;
+            height: 1.2em;
+            color: green;
+        }
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.easy {
+    color: #0f6d4d !important;
+}
+
+.medium {
+    color: #c6991c !important;
+}
+
+.hard {
+    color: #d12e4d !important;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}

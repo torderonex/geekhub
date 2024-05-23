@@ -1,0 +1,13 @@
+.SelectButton {
+    padding: 10px 20px;
+    color: var(--opp);
+    background-color: #221d2b;
+    cursor: pointer;
+    border-radius: 7px;
+    border: none;
+    height: 40px;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}

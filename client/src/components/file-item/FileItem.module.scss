@@ -1,0 +1,78 @@
+.files {
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  // background-color: #007acc;
+  height: 30px;
+  padding: 10px 10px 10px 15px;
+  border-radius: 5px;
+
+  .filesRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .deleteLogo {
+      font-size: 20px;
+      color: transparent;
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+  }
+
+  &:hover {
+    // opacity: 0.7;
+    background-color: var(--hover);
+
+    .editLogo,
+    .deleteLogo {
+      color: var(--font-main);
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+  }
+  .langLogo {
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+  }
+  &Left {
+    display: flex;
+    align-items: center;
+  }
+  .editLogo {
+    width: 16px !important;
+    color: transparent;
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+
+  .icon {
+    font-size: 18px;
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+}
+.fileInput {
+  background-color: var(--main-dark);
+  border: none;
+  border-radius: 4px;
+  color: var(--font-main);
+  padding: 4px 8px;
+  width: 100px;
+  outline: none;
+}
+
+.disabled {
+  cursor: not-allowed !important;
+}
+
+.langLogo {
+  margin-right: 10px;
+  width: 15px;
+  height: 15px;
+}

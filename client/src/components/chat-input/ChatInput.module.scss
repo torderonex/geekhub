@@ -1,0 +1,11 @@
+.ChatInput {
+    outline: none;
+    border: 1px solid var(--font-main);
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    color: var(--font-main);
+    padding: 0 50px 0 10px;
+    font-size: 13px;
+}

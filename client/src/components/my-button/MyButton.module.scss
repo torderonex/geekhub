@@ -1,0 +1,19 @@
+.MyButton {
+    padding: 10px 10px;
+    border: none;
+    background-color: var(--accent-color);
+    color:white;
+    font-weight: 600;
+    height: 30px;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 15px;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
